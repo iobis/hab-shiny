@@ -1,3 +1,5 @@
+source("haedat_graphs.R", local = TRUE)
+
 ui <- navbarPage(
   "HAB data visualization portal",
   haedat_graphs,           

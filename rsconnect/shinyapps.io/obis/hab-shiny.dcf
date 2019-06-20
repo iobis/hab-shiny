@@ -1,0 +1,10 @@
+name: hab-shiny
+title:
+username:
+account: obis
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 990868
+bundleId: 2167649
+url: https://obis.shinyapps.io/hab-shiny/
+when: 1561064695.03603
