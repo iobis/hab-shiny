@@ -10,14 +10,16 @@ server <- function(input, output) {
 
     if (input$region_barplot_type == "relative") {
       relative <- TRUE
+      lab <- "events composition"
     } else {
       relative <- FALSE
+      lab <- "events"
     }
     
     regionplot(data, relative = relative) +
       ggtitle("HAB events by region") +
       xlab("region") +
-      ylab("events composition") +
+      ylab(lab) +
       theme(plot.title = element_text(hjust = 0.5)) +
       labs(fill = "syndrome")
   })
