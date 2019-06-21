@@ -5,6 +5,6 @@ account: obis
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 990868
-bundleId: 2167664
+bundleId: 2169530
 url: https://obis.shinyapps.io/hab-shiny/
-when: 1561064946.53681
+when: 1561133215.09387

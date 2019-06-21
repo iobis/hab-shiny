@@ -2,10 +2,15 @@ library(rhaedat)
 library(ggplot2)
 library(dplyr)
 
+store <- reactive({
+  invalidateLater(1000 * 60 * 5) # 5 minutes
+  list(data = events())
+})
+
 server <- function(input, output) {
 
-  data <- events()
-  
+  #data <- events()
+
   output$region_barplot <- renderPlot({
 
     if (input$region_barplot_type == "relative") {
@@ -16,7 +21,7 @@ server <- function(input, output) {
       lab <- "events"
     }
     
-    regionplot(data, relative = relative) +
+    regionplot(store()$data, relative = relative) +
       ggtitle("HAB events by region") +
       xlab("region") +
       ylab(lab) +
@@ -32,7 +37,7 @@ server <- function(input, output) {
       title <- "HAB events per year"
     }
     
-    cdata <- data %>% filter(countryName == input$country_barplot_country)
+    cdata <- store()$data %>% filter(countryName == input$country_barplot_country)
     barplot(cdata, input$country_barplot_type, min_year = as.numeric(input$country_barplot_startyear), max_year = as.integer(format(Sys.Date(), "%Y")), split = TRUE) +
       ggtitle(title) +
       xlab("year") +
