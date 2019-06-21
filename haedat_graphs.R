@@ -1,3 +1,8 @@
+library(rhaedat)
+
+countryNames <- countries()$countryName
+syndromeNames <- syndromes()$syndromeName
+
 source("region_barplot.R", local = TRUE)
 source("country_barplot.R", local = TRUE)
 

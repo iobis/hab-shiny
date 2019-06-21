@@ -9,8 +9,6 @@ store <- reactive({
 
 server <- function(input, output) {
 
-  #data <- events()
-
   output$region_barplot <- renderPlot({
 
     if (input$region_barplot_type == "relative") {
@@ -45,6 +43,23 @@ server <- function(input, output) {
       theme(plot.title = element_text(hjust = 0.5)) +
       labs(fill = "syndrome")
     
+  })
+  
+  output$ices_map <- renderPlot({
+    
+    area <- list(name = "atlantic", xlim = c(-110, 40), ylim = c(20, 75))
+    years_scale <- scale_radius(limits = c(1, 35), range = c(1.5, 8), breaks = c(1, 10, 20, 30))
+    data <- store()$data %>% filter(syndromeName == input$ices_map_syndrome)
+
+    stats <- data %>% 
+      group_by(syndromeName, longitude, latitude) %>%
+      summarize(years = length(unique(eventYear)))
+    if (any(stats$years > 35)) stop("Too many years for chosen scale, contact p.provoost@unesco.org")
+    
+    make_map(data, area = area, type = "years", scale = years_scale, line_color = "black", line_width = 0.75, color = "#ff704d") +
+      ggtitle("Years with events") +
+      theme(plot.title = element_text(hjust = 0.5))
+
   })
   
 }
